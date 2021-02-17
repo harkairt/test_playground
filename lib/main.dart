@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_playground/auth_cubit.dart';
+import 'package:test_playground/auth_bloc.dart';
 import 'package:test_playground/login_screen.dart';
 
 void main() {
@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider<AuthCubit>(
-        create: (context) => AuthCubit(),
+      home: BlocProvider<AuthBloc>(
+        create: (context) => AuthBloc(),
         child: LoginScreen(),
       ),
     );

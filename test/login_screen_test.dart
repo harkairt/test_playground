@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:test_playground/auth_cubit.dart';
+import 'package:test_playground/auth_bloc.dart';
 import 'package:test_playground/login_screen.dart';
 
-class MockAuthCubit extends MockCubit<AuthCubitState> implements AuthCubit {}
+class MockAuthBloc extends MockBloc<AuthBlocEvent, AuthBlocState> implements AuthBloc {}
 
-Widget wrap(Widget child, AuthCubit cubit) {
+Widget wrap(Widget child, AuthBloc cubit) {
   return MaterialApp(
-    home: BlocProvider<AuthCubit>.value(
+    home: BlocProvider<AuthBloc>.value(
       value: cubit,
       child: child,
     ),
@@ -17,15 +17,14 @@ Widget wrap(Widget child, AuthCubit cubit) {
 }
 
 void main() {
-  late AuthCubit authCubit;
+  late AuthBloc authBloc;
 
   setUp(() {
-    authCubit = MockAuthCubit();
-    whenListen(authCubit, Stream.fromIterable([AuthCubitState(AuthState.UNAUTHORIZED)]));
+    authBloc = MockAuthBloc();
   });
 
   testWidgets('', (WidgetTester tester) async {
-    await tester.pumpWidget(wrap(LoginScreen(), authCubit));
+    await tester.pumpWidget(wrap(LoginScreen(), authBloc));
 
     await tester.tap(find.text('Login'));
     await tester.pump();
